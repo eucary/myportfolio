@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import picko from '../assets/picko.png';
 function Firstpage() {
   const fullText = "Eucary Lloyd D. Dupagan";
   const [displayedText, setDisplayedText] = useState("");
@@ -30,7 +30,6 @@ function Firstpage() {
     };
   }, []);
 
-  const picko = '../assets/mylogo.png';
   return (
     
     <div className="w-full min-h-screen bg-gradient-to-r from-neutral-950 via-neutral-700 to-neutral-400">
