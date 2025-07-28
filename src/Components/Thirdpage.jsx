@@ -10,7 +10,7 @@ import { SiArduino, SiFirebase, SiMysql, SiShadcnui, SiTailwindcss, SiTypescript
 function Thirdpage() {
 
     const images = [
-        './src/assets/thesis/thesis3.png','./src/assets/thesis/thesis4.png', './src/assets/thesis/thesis5.png', './src/assets/thesis/thesis6.png', './src/assets/thesis/thesis1.jpg', './src/assets/thesis/thesis2.png',];
+        '/thesis3.png','./src/assets/thesis/thesis4.png', './src/assets/thesis/thesis5.png', './src/assets/thesis/thesis6.png', './src/assets/thesis/thesis1.jpg', './src/assets/thesis/thesis2.png',];
     const images1 = [
         './src/assets/brulifepics/1.png', './src/assets/brulifepics/2.png', './src/assets/brulifepics/3.png', './src/assets/brulifepics/4.png', './src/assets/brulifepics/5.png', './src/assets/brulifepics/6.png', './src/assets/brulifepics/7.png', './src/assets/brulifepics/8.png','./src/assets/brulifepics/9.png', './src/assets/brulifepics/10.png', './src/assets/brulifepics/11.png', './src/assets/brulifepics/12.png', './src/assets/brulifepics/13.png', './src/assets/brulifepics/14.png', './src/assets/brulifepics/15.png', './src/assets/brulifepics/16.png'
     ]

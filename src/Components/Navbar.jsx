@@ -19,7 +19,7 @@ function Navbar() {
         <div className="font-bold ">
           <a href="/">
           <img 
-            src="/src/assets/mylogo.png" 
+            src="/mylogo.png" 
             alt="Company logo" 
             className="w-16 h-auto ml-3.5 "
           />
