@@ -44,7 +44,7 @@ function Lastpage() {
                                 { icon: <MdMarkEmailUnread />, text: 'eucary21@gmail.com'},
                                 { icon: <FaFacebook />, text: 'web.facebook.com/eucary.dupagan', href: 'https://web.facebook.com/eucary.dupagan' },
                                 { icon: <BsInstagram />, text: 'www.instagram.com/eucstogo0/', href: 'https://www.instagram.com/eucstogo0/' },
-                                { icon: <FaGithub />, text: 'github.com/eucary', href: 'https://github.com/eucary', href: 'https://github.com/eucary' },
+                                { icon: <FaGithub />, text: 'github.com/eucary', href: 'https://github.com/eucary' },
                                 { icon: <FaLinkedin />, text: 'www.linkedin.com/in/eucary-dupagan/', href: 'https://www.linkedin.com/in/eucary-dupagan/' },
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center space-x-4 group">
