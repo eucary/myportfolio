@@ -11,24 +11,65 @@ import thesis5 from '../assets/thesis/thesis5.png';
 import thesis6 from '../assets/thesis/thesis6.png';
 import thesis1 from '../assets/thesis/thesis1.jpg';
 import thesis2 from '../assets/thesis/thesis2.png';
+import img1 from '../assets/brulifepics/1.png';
+import img2 from '../assets/brulifepics/2.png';
+import img3 from '../assets/brulifepics/3.png';
+import img4 from '../assets/brulifepics/4.png';
+import img5 from '../assets/brulifepics/5.png';
+import img6 from '../assets/brulifepics/6.png';
+import img7 from '../assets/brulifepics/7.png';
+import img8 from '../assets/brulifepics/8.png';
+import img9 from '../assets/brulifepics/9.png';
+import img10 from '../assets/brulifepics/10.png';
+import img11 from '../assets/brulifepics/11.png';
+import img12 from '../assets/brulifepics/12.png';
+import img13 from '../assets/brulifepics/13.png';
+import img14 from '../assets/brulifepics/14.png';
+import img15 from '../assets/brulifepics/15.png';
+import img16 from '../assets/brulifepics/16.png';
+import chat1 from '../assets/chatapp/1.png';
+import chat2 from '../assets/chatapp/2.png';
+import chat3 from '../assets/chatapp/3.png';
+import chat4 from '../assets/chatapp/4.png';
+import chat5 from '../assets/chatapp/5.png';
+import chat6 from '../assets/chatapp/6.png';
+import chat7 from '../assets/chatapp/7.png';
+import figma1 from '../assets/figma/1.png';
+import figma2 from '../assets/figma/2.png';
+import figma3 from '../assets/figma/3.png';
+import figma4 from '../assets/figma/4.png';
+import figma5 from '../assets/figma/5.png';
+import figma6 from '../assets/figma/6.png';
+import figma7 from '../assets/figma/7.png';
+import figma8 from '../assets/figma/8.png';
+import figma9 from '../assets/figma/9.png';
+import figma10 from '../assets/figma/10.png';
+import figma11 from '../assets/figma/11.png';
+import figma12 from '../assets/figma/12.png';
+import figma13 from '../assets/figma/13.png';
+import figma14 from '../assets/figma/14.png';
+import figma15 from '../assets/figma/15.png';
+import figma16 from '../assets/figma/16.png';
+import figma17 from '../assets/figma/17.png';
+import figma18 from '../assets/figma/18.png';
+import figma19 from '../assets/figma/19.png';
+import figma20 from '../assets/figma/20.png';
+import sh1 from '../assets/statushub/1.png';
+import sh2 from '../assets/statushub/2.png';
+import sh3 from '../assets/statushub/3.png';
+import sh4 from '../assets/statushub/4.png';
+import sh5 from '../assets/statushub/5.png';
+import book1 from '../assets/booking/1.png';
+import book2 from '../assets/booking/2.png';
+import book3 from '../assets/booking/3.png';
+import book4 from '../assets/booking/4.png';
 function Thirdpage() {
     const images = [thesis3, thesis4, thesis5, thesis6, thesis1, thesis2];
-    
-    const images1 = [
-        './src/assets/brulifepics/1.png', './src/assets/brulifepics/2.png', './src/assets/brulifepics/3.png', './src/assets/brulifepics/4.png', './src/assets/brulifepics/5.png', './src/assets/brulifepics/6.png', './src/assets/brulifepics/7.png', './src/assets/brulifepics/8.png','./src/assets/brulifepics/9.png', './src/assets/brulifepics/10.png', './src/assets/brulifepics/11.png', './src/assets/brulifepics/12.png', './src/assets/brulifepics/13.png', './src/assets/brulifepics/14.png', './src/assets/brulifepics/15.png', './src/assets/brulifepics/16.png'
-    ]
-    const images2 = [
-        './src/assets/chatapp/1.png', './src/assets/chatapp/2.png', './src/assets/chatapp/3.png', './src/assets/chatapp/4.png', './src/assets/chatapp/5.png', './src/assets/chatapp/6.png', './src/assets/chatapp/7.png'
-    ]
-    const images3 = [
-        './src/assets/figma/1.png', './src/assets/figma/2.png', './src/assets/figma/3.png', './src/assets/figma/4.png', './src/assets/figma/5.png', './src/assets/figma/6.png', './src/assets/figma/7.png', './src/assets/figma/8.png', './src/assets/figma/9.png', './src/assets/figma/10.png', './src/assets/figma/11.png', './src/assets/figma/12.png', './src/assets/figma/13.png', './src/assets/figma/14.png', './src/assets/figma/15.png', './src/assets/figma/16.png', './src/assets/figma/17.png', './src/assets/figma/18.png', './src/assets/figma/19.png', './src/assets/figma/20.png'
-    ]
-    const images4 = [
-        './src/assets/statushub/1.png', './src/assets/statushub/2.png', './src/assets/statushub/3.png', './src/assets/statushub/4.png', './src/assets/statushub/5.png'
-    ]
-    const images5 = [
-        './src/assets/booking/1.png', './src/assets/booking/2.png', './src/assets/booking/3.png', './src/assets/booking/4.png'
-    ]
+    const images1 = [img1, img2, img3, img4, img5, img6, img7, img8,img9, img10, img11, img12, img13, img14, img15, img16];
+    const images2 = [chat1, chat2, chat3, chat4, chat5, chat6, chat7];
+    const images3 = [figma1, figma2, figma3, figma4, figma5, figma6, figma7, figma8, figma9, figma10, figma11, figma12, figma13, figma14, figma15, figma16, figma17, figma18, figma19, figma20];
+    const images4 = [sh1, sh2, sh3, sh4, sh5];
+    const images5 = [book1, book2, book3, book4];
 
     const [openModalIndex, setOpenModalIndex] = useState(null); // null means no modal is open
 
