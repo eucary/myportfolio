@@ -1,5 +1,5 @@
 import React from 'react';
-
+import mylogo from './assets/mylogo.png';
 function Navbar() {
   
   return (
@@ -17,9 +17,9 @@ function Navbar() {
     >
       <nav className="flex items-center justify-between">
         <div className="font-bold ">
-          <a href="/">
+          <a href="#top">
           <img 
-            src="/mylogo.png" 
+            src={mylogo} 
             alt="Company logo" 
             className="w-16 h-auto ml-3.5 "
           />
