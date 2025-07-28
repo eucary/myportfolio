@@ -29,7 +29,8 @@ function Firstpage() {
       clearTimeout(timeout);
     };
   }, []);
-  const picko = './src/assets/picko.png';
+
+  const picko = '../assets/mylogo.png';
   return (
     
     <div className="w-full min-h-screen bg-gradient-to-r from-neutral-950 via-neutral-700 to-neutral-400">
