@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import aboutImg from '../assets/about.jpg';
 
 function Secondpage() {
   return (
@@ -18,7 +18,7 @@ function Secondpage() {
                     <p>I thrive in environments that challenge me to grow, and I’m committed to building a career where I can apply my technical expertise to solve real-world problems. Whether it's through collaborative projects or independent work, I approach every opportunity with focus, responsibility, and a desire to make a meaningful impact.</p>
                     <p>Eager to kick-start my professional journey, I am looking for opportunities where I can contribute, learn from experienced mentors, continuously push my boundaries as an engineer, and continuously grow in a dynamic tech environment.</p>
                 </aboutme>
-                <img src='./src/assets/about.jpg' alt='About Me' className=' rounded-lg shadow-lg  ml-4 w-5/6 h-100  ' >
+                <img src={aboutImg} alt='About Me' className=' rounded-lg shadow-lg  ml-4 w-5/6 h-100  ' >
                 </img>
             </div>    
         </div>

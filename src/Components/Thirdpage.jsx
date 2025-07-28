@@ -3,14 +3,17 @@ import { FaReact } from 'react-icons/fa';
 import { FaJava, FaNodeJs } from 'react-icons/fa6';
 import { FiFigma } from 'react-icons/fi';
 import { IoLogoCss3, IoLogoHtml5, IoLogoJavascript } from 'react-icons/io5';
-
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import { SiArduino, SiFirebase, SiMysql, SiShadcnui, SiTailwindcss, SiTypescript, SiVite } from 'react-icons/si';
-
+import thesis3 from '../assets/thesis/thesis3.png';
+import thesis4 from '../assets/thesis/thesis4.png';
+import thesis5 from '../assets/thesis/thesis5.png';
+import thesis6 from '../assets/thesis/thesis6.png';
+import thesis1 from '../assets/thesis/thesis1.jpg';
+import thesis2 from '../assets/thesis/thesis2.png';
 function Thirdpage() {
-
-    const images = [
-        '/thesis3.png','./src/assets/thesis/thesis4.png', './src/assets/thesis/thesis5.png', './src/assets/thesis/thesis6.png', './src/assets/thesis/thesis1.jpg', './src/assets/thesis/thesis2.png',];
+    const images = [thesis3, thesis4, thesis5, thesis6, thesis1, thesis2];
+    
     const images1 = [
         './src/assets/brulifepics/1.png', './src/assets/brulifepics/2.png', './src/assets/brulifepics/3.png', './src/assets/brulifepics/4.png', './src/assets/brulifepics/5.png', './src/assets/brulifepics/6.png', './src/assets/brulifepics/7.png', './src/assets/brulifepics/8.png','./src/assets/brulifepics/9.png', './src/assets/brulifepics/10.png', './src/assets/brulifepics/11.png', './src/assets/brulifepics/12.png', './src/assets/brulifepics/13.png', './src/assets/brulifepics/14.png', './src/assets/brulifepics/15.png', './src/assets/brulifepics/16.png'
     ]

@@ -47,7 +47,7 @@ function Firstpage() {
             <span className='bg-neutral-700 p-5'>Welcome to My Portfolio</span>
             <span className="inline-flex items-center ml-4 w-100 rounded-2xl  border-b-8 border-solid border-white flex-grow"></span>
           </h2>
-            <h1 className="font-bold text-blue-800 font-paytone" style={{ fontFamily: "'Paytone One', sans-serif", fontSize: '6rem' }}>
+            <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800" style={{ fontFamily: "'Paytone One', sans-serif", fontSize: '6rem' }}>
               {displayedText}
               
             </h1>
