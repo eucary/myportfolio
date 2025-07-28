@@ -29,14 +29,14 @@ function Firstpage() {
       clearTimeout(timeout);
     };
   }, []);
-
+  const picko = './src/assets/picko.png';
   return (
     
     <div className="w-full min-h-screen bg-gradient-to-r from-neutral-950 via-neutral-700 to-neutral-400">
       <div className="flex flex-row h-screen justify-between items-center">
         <div className="w-4/10 h-screen p-8 ">
           <img className="w-5/6 h-9/10 ml-10 "
-            src="/picko.png"
+            src={picko}
             alt="Graduation"
           />
 
