@@ -2,11 +2,11 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Navbar from './Components/Navbar'
-import Firstpage from './Components/Firstpage'
 import Secondpage from './Components/Secondpage'
 import Thirdpage from './Components/Thirdpage'
 import Fourthpage from './Components/Fourthpage'
 import Lastpage from './Components/Lastpage'
+import Firstpage from './Components/firstpage'
 
 
 function Portfolio() {
@@ -15,12 +15,13 @@ function Portfolio() {
   return (
     <>
       <complete>
-        <Navbar/>
-        <Firstpage /> 
+        <Navbar />
+        <Firstpage />
         <Secondpage />
         <Thirdpage />
         <Fourthpage />
         <Lastpage />
+
       </complete>
       
     </>

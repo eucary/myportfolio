@@ -10,6 +10,7 @@
   font-family: 'Inter', sans-serif; /* Ensure you have Inter font imported */
   background-color: #1f2937;
   color: #f3f4f6; /* Tailwind's gray-200 */
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 /* For Chrome, Edge, and Safari */
 ::-webkit-scrollbar {
@@ -27,7 +28,7 @@
 }
 
 /* For Firefox */
-* {
+* { 
   scrollbar-width: thin;
   scrollbar-color: #9ca3af #222;
 }
@@ -146,4 +147,27 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.split-left {
+  transform: translateX(0px);
+  opacity: 1;
+  transition: all 0.8s ease-out;
+}
+.split-left-hidden {
+  transform: translateX(100px);
+  opacity: 0;
+}
+.split-right-hidden {
+  transform: translateX(-100px);
+  opacity: 0;
+}
+.split-right {
+  transform: translateX(0px);
+  opacity: 1;
+  transition: all 0.8s ease-out;
+}
+.split-show {
+  transform: translateX(0);
+  opacity: 1;
 }

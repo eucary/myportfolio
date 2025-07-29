@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import { FaReact } from 'react-icons/fa';
 import { FaJava, FaNodeJs } from 'react-icons/fa6';
 import { FiFigma } from 'react-icons/fi';
@@ -118,20 +119,46 @@ function Thirdpage() {
     const handleNext5 = () => {
         setCurrentIndex5((prevIndex) => (prevIndex === images5.length - 1 ? 0 : prevIndex + 1));
         };
+    const blockRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+            if (entry.isIntersecting) {
+                setIsVisible(true);
+                observer.disconnect(); // optional lang ito
+            }
+            },
+            { threshold: 0.3 }
+        );
+
+        if (blockRef.current) {
+            observer.observe(blockRef.current);
+        }
+
+        return () => {
+            if (blockRef.current) {
+            observer.unobserve(blockRef.current);
+            }
+        };
+        }, []);
   return (
     <div id='projects' className=" bg-zinc-800 p-8 pt-24">
-        <div className='pl-28 pr-28 '>
-            <div className= ' flex flex-row items-center justify-center space-y-4 '>
-                <h1 className="text-4xl font-bold text-blue-500 border-white border-2 rounded-xl p-5" style={{ fontFamily: "'Rowdies', sans-serif", fontSize: '3rem' }}>My projects</h1>
-                <span className="inline-flex items-center ml-4 rounded-2xl flex-grow h-2 bg-gradient-to-r from-white via-neutral-700 to-neutral-400"></span>
-            </div>
-            <div className="grid grid-cols-2 gap-6 w-full  p-4  mt-8">
+        <div className='lg:pl-28 lg:pr-28 '>
+        <div className='flex flex-row items-center justify-center space-y-4'>
+          <h1 className="text-xl sm:text-xl md:text-2xl lg:text-5xl font-bold text-blue-500 border-white border-2 rounded-xl p-5"
+              style={{ fontFamily: "'Rowdies', sans-serif" }}>
+            Projects
+          </h1>
+          <span className="inline-flex items-center ml-4 rounded-2xl flex-grow h-2 bg-gradient-to-r from-white via-neutral-700 to-neutral-400"></span>
+        </div>
+            <div ref={blockRef} className={`grid grid grid-cols-1 md:grid-cols-2 gap-6 w-full p-4 lg:mt-8 ${isVisible ? 'split-left' : 'split-left-hidden'}`}>
                 <div className=" border-2 border-blue-500 rounded-lg shadow-lg hover:scale-105 hover:shadow-2xl transition-transform duration-300 hover:bg-neutral-700 hover-shadow-2xl hover:border-blue-400">
-                    <div className="relative w-full p-4 ">
+                    <div className="relative w-full p-4">
                         <img
                             src={images[currentIndex]}
                             alt={`Project Image ${currentIndex + 1}`}
-                            className="mx-auto h-72 rounded-md"
+                            className=" h-72 rounded-md mx-auto "
                         />
                         <div className=" flex items-center justify-center mt-4">
                             <button
@@ -144,7 +171,7 @@ function Thirdpage() {
                                 {images.map((_, index) => (
                                     <span
                                     key={index}
-                                    className={`h-3 w-3 rounded-full cursor-pointer ${
+                                    className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer ${
                                         index === currentIndex ? 'bg-blue-500' : 'bg-white'
                                     }`}
                                     onClick={() => setCurrentIndex(index)}
@@ -178,30 +205,52 @@ function Thirdpage() {
                             alt={`Project Image ${currentIndex1 + 1}`}
                             className="mx-auto h-72 rounded-md"
                         />
-                        <div className=" flex items-center justify-center mt-4">
-                            <button
-                                onClick={handlePrev1}
-                                className="   text-blue-400 p-2 "
-                            >
-                                <MdArrowBackIos/>
+                        <div className="flex items-center justify-center mt-4 space-x-4">
+                            <button onClick={handlePrev1} className="text-blue-400 p-2">
+                                <MdArrowBackIos />
                             </button>
-                            <div className="flex justify-center space-x-2 ">
-                                {images1.map((_, index) => (
+
+                            <div className="flex justify-center items-center space-x-2">
+                                {/* Leading Ellipsis */}
+                                {currentIndex1 > 2 && (
+                                <span className="text-gray-400 px-1 select-none">…</span>
+                                )}
+
+                                {images1.map((_, index) => {
+                                const total = images1.length;
+                                const maxDots = 6;
+                                const half = Math.floor(maxDots / 2);
+
+                                let start = Math.max(0, currentIndex1 - half);
+                                let end = Math.min(total, start + maxDots);
+
+                                if (end - start < maxDots) {
+                                    start = Math.max(0, end - maxDots);
+                                }
+
+                                if (index >= start && index < end) {
+                                    return (
                                     <span
-                                    key={index}
-                                    className={`h-3 w-3 rounded-full cursor-pointer ${
-                                        index === currentIndex1 ? 'bg-blue-500' : 'bg-white'
-                                    }`}
-                                    onClick={() => setCurrentIndex1(index)}
-                                    aria-label={`Go to image ${index + 1}`}
+                                        key={index}
+                                        className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer transition-all ${
+                                        index === currentIndex1 ? 'bg-blue-500' : 'bg-white border border-blue-500'
+                                        }`}
+                                        onClick={() => setCurrentIndex1(index)}
+                                        aria-label={`Go to image ${index + 1}`}
                                     />
-                                ))}
+                                    );
+                                }
+
+                                return null;
+                                })}
+
+                                {/* Trailing Ellipsis */}
+                                {currentIndex1 < images1.length - 3 && (
+                                <span className="text-gray-400 px-1 select-none">…</span>
+                                )}
                             </div>
-                            <button
-                                onClick={handleNext1}
-                                className="   text-blue-400 p-2  "
-                            >
-                                <MdArrowForwardIos/>
+                            <button onClick={handleNext1} className="text-blue-400 p-2">
+                                <MdArrowForwardIos />
                             </button>
                         </div>
                     </div>
@@ -224,30 +273,52 @@ function Thirdpage() {
                             alt={`Project Image ${currentIndex2 + 1}`}
                             className="mx-auto h-72 rounded-md"
                         />
-                        <div className=" flex items-center justify-center mt-4">
-                            <button
-                                onClick={handlePrev2}
-                                className="   text-blue-400 p-2 "
-                            >
-                                <MdArrowBackIos/>
+                        <div className="flex items-center justify-center mt-4 space-x-4">
+                            <button onClick={handlePrev2} className="text-blue-400 p-2">
+                                <MdArrowBackIos />
                             </button>
-                            <div className="flex justify-center space-x-2 ">
-                                {images2.map((_, index) => (
+
+                            <div className="flex justify-center items-center space-x-2">
+                                {/* Leading Ellipsis */}
+                                {currentIndex2 > 2 && (
+                                <span className="text-gray-400 px-1 select-none">…</span>
+                                )}
+
+                                {images2.map((_, index) => {
+                                const total = images2.length;
+                                const maxDots = 6;
+                                const half = Math.floor(maxDots / 2);
+
+                                let start = Math.max(0, currentIndex2 - half);
+                                let end = Math.min(total, start + maxDots);
+
+                                if (end - start < maxDots) {
+                                    start = Math.max(0, end - maxDots);
+                                }
+
+                                if (index >= start && index < end) {
+                                    return (
                                     <span
-                                    key={index}
-                                    className={`h-3 w-3 rounded-full cursor-pointer ${
-                                        index === currentIndex2 ? 'bg-blue-500' : 'bg-white'
-                                    }`}
-                                    onClick={() => setCurrentIndex2(index)}
-                                    aria-label={`Go to image ${index + 1}`}
+                                        key={index}
+                                        className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer transition-all ${
+                                        index === currentIndex2 ? 'bg-blue-500' : 'bg-white border border-blue-500'
+                                        }`}
+                                        onClick={() => setCurrentIndex2(index)}
+                                        aria-label={`Go to image ${index + 1}`}
                                     />
-                                ))}
+                                    );
+                                }
+
+                                return null;
+                                })}
+
+                                {/* Trailing Ellipsis */}
+                                {currentIndex2 < images2.length - 3 && (
+                                <span className="text-gray-400 px-1 select-none">…</span>
+                                )}
                             </div>
-                            <button
-                                onClick={handleNext2}
-                                className="   text-blue-400 p-2  "
-                            >
-                                <MdArrowForwardIos/>
+                            <button onClick={handleNext2} className="text-blue-400 p-2">
+                                <MdArrowForwardIos />
                             </button>
                         </div>
                     </div>
@@ -270,30 +341,52 @@ function Thirdpage() {
                             alt={`Project Image ${currentIndex3 + 1}`}
                             className=" h-72 rounded-md mx-auto "
                         />
-                        <div className=" flex items-center justify-center mt-4">
-                            <button
-                                onClick={handlePrev3}
-                                className="   text-blue-400 p-2 "
-                            >
-                                <MdArrowBackIos/>
+                       <div className="flex items-center justify-center mt-4 space-x-4">
+                            <button onClick={handlePrev3} className="text-blue-400 p-2">
+                                <MdArrowBackIos />
                             </button>
-                            <div className="flex justify-center space-x-2 ">
-                                {images3.map((_, index) => (
+
+                            <div className="flex justify-center items-center lg:space-x-2 space-x-1">
+                                {/* Leading Ellipsis */}
+                                {currentIndex3 > 2 && (
+                                <span className="text-gray-400 px-1 select-none">…</span>
+                                )}
+
+                                {images3.map((_, index) => {
+                                const total = images3.length;
+                                const maxDots = 6;
+                                const half = Math.floor(maxDots / 2);
+
+                                let start = Math.max(0, currentIndex3 - half);
+                                let end = Math.min(total, start + maxDots);
+
+                                if (end - start < maxDots) {
+                                    start = Math.max(0, end - maxDots);
+                                }
+
+                                if (index >= start && index < end) {
+                                    return (
                                     <span
-                                    key={index}
-                                    className={`h-3 w-3 rounded-full cursor-pointer ${
-                                        index === currentIndex3 ? 'bg-blue-500' : 'bg-white'
-                                    }`}
-                                    onClick={() => setCurrentIndex3(index)}
-                                    aria-label={`Go to image ${index + 1}`}
+                                        key={index}
+                                        className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer transition-all ${
+                                        index === currentIndex3 ? 'bg-blue-500' : 'bg-white border border-blue-500'
+                                        }`}
+                                        onClick={() => setCurrentIndex3(index)}
+                                        aria-label={`Go to image ${index + 1}`}
                                     />
-                                ))}
+                                    );
+                                }
+
+                                return null;
+                                })}
+
+                                {/* Trailing Ellipsis */}
+                                {currentIndex3 < images3.length - 3 && (
+                                <span className="text-gray-400 px-1 select-none">…</span>
+                                )}
                             </div>
-                            <button
-                                onClick={handleNext3}
-                                className="   text-blue-400 p-2  "
-                            >
-                                <MdArrowForwardIos/>
+                            <button onClick={handleNext3} className="text-blue-400 p-2">
+                                <MdArrowForwardIos />
                             </button>
                         </div>
                     </div>
@@ -326,7 +419,7 @@ function Thirdpage() {
                                 {images4.map((_, index) => (
                                     <span
                                     key={index}
-                                    className={`h-3 w-3 rounded-full cursor-pointer ${
+                                    className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer ${
                                         index === currentIndex4 ? 'bg-blue-500' : 'bg-white'
                                     }`}
                                     onClick={() => setCurrentIndex4(index)}
@@ -344,7 +437,7 @@ function Thirdpage() {
                     </div>
                     <div className='pl-8 pr-8 pb-4'>
                         <h2 className=' font-bold text-white'style={{ fontFamily: "'Roboto Flex', sans-serif", fontSize: '1.5rem' }}>StatusHub</h2>
-                        <p className='text-m text-white opacity-75 text-justify' style={{fontFamily: "'Atkinson Hyperlegible', sans-serif"}}>This is also one of my personal projects — Status Hub, a platform where users can post, edit, and delete their own status updates, as well as view status posts from others. It highlights my skills in user interaction, CRUD functionality, and dynamic content handling..</p>
+                        <p className='text-m text-white opacity-75 text-justify' style={{fontFamily: "'Atkinson Hyperlegible', sans-serif"}}>This is also one of my personal projects — Status Hub, a platform where users can post, edit, and delete their own status updates, as well as view status posts from others. It highlights my skills in user interaction, CRUD functionality, and dynamic content handling.</p>
                         <button
                             onClick={() => setOpenModalIndex(4)} // change 0 to 1, 2, 3, etc. per project
                             className='block mx-auto cursor-pointer text-blue-600 hover:text-white hover:underline mt-2'
@@ -371,7 +464,7 @@ function Thirdpage() {
                                 {images5.map((_, index) => (
                                     <span
                                     key={index}
-                                    className={`h-3 w-3 rounded-full cursor-pointer ${
+                                    className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer ${
                                         index === currentIndex5 ? 'bg-blue-500' : 'bg-white'
                                     }`}
                                     onClick={() => setCurrentIndex5(index)}
@@ -402,8 +495,8 @@ function Thirdpage() {
         </div>
 
             {openModalIndex !== null && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-                    <div className="bg-zinc-700 rounded-md shadow-lg p-6 w-1/2  relative max-h-[90vh] overflow-y-auto">
+                <div className="fixed inset-0 z-50 flex items-center  justify-center bg-black/30 backdrop-blur-sm">
+                    <div className="bg-zinc-700 rounded-md shadow-lg p-6 lg:w-1/2  relative max-h-[90vh] overflow-y-auto">
                         <button
                             onClick={() => setOpenModalIndex(null)}
                             className="absolute top-2 right-2 text-white hover:text-blue-500"
@@ -415,47 +508,47 @@ function Thirdpage() {
                             <span className="inline-flex items-center ml-4 rounded-2xl flex-grow h-1 bg-gradient-to-r from-white via-neutral-700 to-neutral-400"></span>
                             {[                   
                                 <div className='flex-row flex gap-1'>
-                                    <IoLogoJavascript className=' text-yellow-500 h-10 w-10'/>
-                                    <SiArduino className=' text-white h-10 w-10'/>
-                                    <IoLogoHtml5 className=' text-orange-600 h-10 w-10'/>
-                                    <IoLogoCss3 className=' text-blue-500 h-10 w-10'/>
+                                    <IoLogoJavascript className=' text-yellow-500 lg:h-10 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiArduino className=' text-white lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoHtml5 className=' text-orange-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoCss3 className=' text-blue-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
                                 </div>,
                                 <div className='flex-row flex gap-1'>
-                                    <IoLogoJavascript className=' text-yellow-500 h-10 w-10'/>
-                                    <IoLogoHtml5 className=' text-orange-600 h-10 w-10'/>
-                                    <IoLogoCss3 className=' text-blue-500 h-10 w-10'/>
-                                    <FaReact className=' text-blue-300 h-10 w-10'/>
-                                    <FiFigma className=' text-black h-10 w-10'/>
-                                    <SiTailwindcss className=' text-blue-400 h-10 w-10'/>
-                                    <SiShadcnui className=' text-white h-10 w-10'/>
+                                    <IoLogoJavascript className=' text-yellow-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoHtml5 className=' text-orange-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoCss3 className=' text-blue-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FaReact className=' text-blue-300 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FiFigma className=' text-black lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiTailwindcss className=' text-blue-400 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiShadcnui className=' text-white lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
                                 </div>,
                                 <div className='flex-row flex gap-1'>
-                                    <IoLogoJavascript className=' text-yellow-500 h-10 w-10'/>
-                                    <IoLogoHtml5 className=' text-orange-600 h-10 w-10'/>
-                                    <IoLogoCss3 className=' text-blue-500 h-10 w-10'/>
-                                    <FaReact className=' text-blue-300 h-10 w-10'/>
-                                    <SiVite className=' text-violet-400 h-10 w-10'/>
-                                    <FiFigma className=' text-black h-10 w-10'/>
-                                    <SiMysql className=' text-white h-10 w-10'/>
-                                    <FaNodeJs className=' text-green-500 h-10 w-10'/>
-                                    <SiTypescript className=' text-blue-600 h-10 w-10'/>
+                                    <IoLogoJavascript className=' text-yellow-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoHtml5 className=' text-orange-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoCss3 className=' text-blue-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FaReact className=' text-blue-300 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiVite className=' text-violet-400 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FiFigma className=' text-black lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiMysql className=' text-white lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FaNodeJs className=' text-green-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiTypescript className=' text-blue-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
                                 </div>,
                                 <div className='flex-row flex gap-1'>
-                                    <FiFigma className=' text-black h-10 w-10'/>
+                                    <FiFigma className=' text-black lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
                                 </div>,
                                 <div className='flex-row flex gap-1'>
-                                    <IoLogoJavascript className=' text-yellow-500 h-10 w-10'/>
-                                    <IoLogoHtml5 className=' text-orange-600 h-10 w-10'/>
-                                    <IoLogoCss3 className=' text-blue-500 h-10 w-10'/>
-                                    <FaReact className=' text-blue-300 h-10 w-10'/>
-                                    <SiVite className=' text-violet-400 h-10 w-10'/>
-                                    <FiFigma className=' text-black h-10 w-10'/>
-                                    <SiFirebase className=' text-orange-600 h-10 w-10'/>
-                                    <FaNodeJs className=' text-green-500 h-10 w-10'/>
-                                    <SiTypescript className=' text-blue-600 h-10 w-10'/>
+                                    <IoLogoJavascript className=' text-yellow-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoHtml5 className=' text-orange-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <IoLogoCss3 className=' text-blue-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FaReact className=' text-blue-300 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiVite className=' text-violet-400 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FiFigma className=' text-black lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiFirebase className=' text-orange-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <FaNodeJs className=' text-green-500 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
+                                    <SiTypescript className=' text-blue-600 lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
                                 </div>,
                                 <div className='flex-row flex gap-1'>
-                                    <FaJava className=' text-white h-10 w-10'/>
+                                    <FaJava className=' text-white lg:w-10 md:h-8 md:w-8 sm:h-5 sm:w-5'/>
                                     
                                 </div>,
                             ][openModalIndex]}
@@ -466,7 +559,7 @@ function Thirdpage() {
                                     <img
                                     src={images[currentIndex]}
                                     alt={`Project Image ${currentIndex + 1}`}
-                                    className="mx-auto h-96 rounded-md"
+                                    className="mx-auto lg:h-96 rounded-md"
                                     />
                                     <div className="flex items-center justify-center mt-4">
                                     <button onClick={handlePrev} className="text-blue-400 p-2">
@@ -493,23 +586,51 @@ function Thirdpage() {
                                     <img
                                         src={images1[currentIndex1]}
                                         alt={`Project Image ${currentIndex1 + 1}`}
-                                        className="mx-auto h-96 rounded-md"
+                                        className="mx-auto lg:h-96 rounded-md"
                                     />
-                                    <div className="flex items-center justify-center mt-4">
+                                    <div className="flex items-center justify-center mt-4 space-x-4">
                                         <button onClick={handlePrev1} className="text-blue-400 p-2">
                                             <MdArrowBackIos />
                                         </button>
-                                        <div className="flex justify-center space-x-2">
-                                            {images1.map((_, index) => (
-                                            <span
-                                                key={index}
-                                                className={`h-3 w-3 rounded-full cursor-pointer ${
-                                                index === currentIndex1 ? 'bg-blue-500' : 'bg-white'
-                                                }`}
-                                                onClick={() => setCurrentIndex1(index)}
-                                                aria-label={`Go to image ${index + 1}`}
-                                            />
-                                            ))}
+
+                                        <div className="flex justify-center items-center space-x-2">
+                                            {/* Leading Ellipsis */}
+                                            {currentIndex1 > 2 && (
+                                            <span className="text-gray-400 px-1 select-none">…</span>
+                                            )}
+
+                                            {images1.map((_, index) => {
+                                            const total = images1.length;
+                                            const maxDots = 6;
+                                            const half = Math.floor(maxDots / 2);
+
+                                            let start = Math.max(0, currentIndex1 - half);
+                                            let end = Math.min(total, start + maxDots);
+
+                                            if (end - start < maxDots) {
+                                                start = Math.max(0, end - maxDots);
+                                            }
+
+                                            if (index >= start && index < end) {
+                                                return (
+                                                <span
+                                                    key={index}
+                                                    className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer transition-all ${
+                                                    index === currentIndex1 ? 'bg-blue-500' : 'bg-white border border-blue-500'
+                                                    }`}
+                                                    onClick={() => setCurrentIndex1(index)}
+                                                    aria-label={`Go to image ${index + 1}`}
+                                                />
+                                                );
+                                            }
+
+                                            return null;
+                                            })}
+
+                                            {/* Trailing Ellipsis */}
+                                            {currentIndex1 < images1.length - 3 && (
+                                            <span className="text-gray-400 px-1 select-none">…</span>
+                                            )}
                                         </div>
                                         <button onClick={handleNext1} className="text-blue-400 p-2">
                                             <MdArrowForwardIos />
@@ -520,23 +641,51 @@ function Thirdpage() {
                                     <img
                                         src={images2[currentIndex2]}
                                         alt={`Project Image ${currentIndex2 + 1}`}
-                                        className="mx-auto h-96 rounded-md"
+                                        className="mx-auto lg:h-96 rounded-md"
                                     />
-                                    <div className="flex items-center justify-center mt-4">
+                                    <div className="flex items-center justify-center mt-4 space-x-4">
                                         <button onClick={handlePrev2} className="text-blue-400 p-2">
                                             <MdArrowBackIos />
                                         </button>
-                                        <div className="flex justify-center space-x-2">
-                                            {images2.map((_, index) => (
-                                            <span
-                                                key={index}
-                                                className={`h-3 w-3 rounded-full cursor-pointer ${
-                                                index === currentIndex2 ? 'bg-blue-500' : 'bg-white'
-                                                }`}
-                                                onClick={() => setCurrentIndex2(index)}
-                                                aria-label={`Go to image ${index + 1}`}
-                                            />
-                                            ))}
+
+                                        <div className="flex justify-center items-center space-x-2">
+                                            {/* Leading Ellipsis */}
+                                            {currentIndex2 > 2 && (
+                                            <span className="text-gray-400 px-1 select-none">…</span>
+                                            )}
+
+                                            {images2.map((_, index) => {
+                                            const total = images2.length;
+                                            const maxDots = 6;
+                                            const half = Math.floor(maxDots / 2);
+
+                                            let start = Math.max(0, currentIndex1 - half);
+                                            let end = Math.min(total, start + maxDots);
+
+                                            if (end - start < maxDots) {
+                                                start = Math.max(0, end - maxDots);
+                                            }
+
+                                            if (index >= start && index < end) {
+                                                return (
+                                                <span
+                                                    key={index}
+                                                    className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer transition-all ${
+                                                    index === currentIndex2 ? 'bg-blue-500' : 'bg-white border border-blue-500'
+                                                    }`}
+                                                    onClick={() => setCurrentIndex2(index)}
+                                                    aria-label={`Go to image ${index + 1}`}
+                                                />
+                                                );
+                                            }
+
+                                            return null;
+                                            })}
+
+                                            {/* Trailing Ellipsis */}
+                                            {currentIndex2 < images2.length - 3 && (
+                                            <span className="text-gray-400 px-1 select-none">…</span>
+                                            )}
                                         </div>
                                         <button onClick={handleNext2} className="text-blue-400 p-2">
                                             <MdArrowForwardIos />
@@ -547,23 +696,51 @@ function Thirdpage() {
                                     <img
                                         src={images3[currentIndex3]}
                                         alt={`Project Image ${currentIndex3 + 1}`}
-                                        className="mx-auto h-96 rounded-md"
+                                        className="mx-auto lg:h-96 rounded-md"
                                     />
-                                    <div className="flex items-center justify-center mt-4">
+                                    <div className="flex items-center justify-center mt-4 space-x-4">
                                         <button onClick={handlePrev3} className="text-blue-400 p-2">
                                             <MdArrowBackIos />
                                         </button>
-                                        <div className="flex justify-center space-x-2">
-                                            {images3.map((_, index) => (
-                                            <span
-                                                key={index}
-                                                className={`h-3 w-3 rounded-full cursor-pointer ${
-                                                index === currentIndex3 ? 'bg-blue-500' : 'bg-white'
-                                                }`}
-                                                onClick={() => setCurrentIndex3(index)}
-                                                aria-label={`Go to image ${index + 1}`}
-                                            />
-                                            ))}
+
+                                        <div className="flex justify-center items-center space-x-2">
+                                            {/* Leading Ellipsis */}
+                                            {currentIndex3 > 2 && (
+                                            <span className="text-gray-400 px-1 select-none">…</span>
+                                            )}
+
+                                            {images1.map((_, index) => {
+                                            const total = images3.length;
+                                            const maxDots = 6;
+                                            const half = Math.floor(maxDots / 2);
+
+                                            let start = Math.max(0, currentIndex3 - half);
+                                            let end = Math.min(total, start + maxDots);
+
+                                            if (end - start < maxDots) {
+                                                start = Math.max(0, end - maxDots);
+                                            }
+
+                                            if (index >= start && index < end) {
+                                                return (
+                                                <span
+                                                    key={index}
+                                                    className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer transition-all ${
+                                                    index === currentIndex3 ? 'bg-blue-500' : 'bg-white border border-blue-500'
+                                                    }`}
+                                                    onClick={() => setCurrentIndex3(index)}
+                                                    aria-label={`Go to image ${index + 1}`}
+                                                />
+                                                );
+                                            }
+
+                                            return null;
+                                            })}
+
+                                            {/* Trailing Ellipsis */}
+                                            {currentIndex3 < images3.length - 3 && (
+                                            <span className="text-gray-400 px-1 select-none">…</span>
+                                            )}
                                         </div>
                                         <button onClick={handleNext3} className="text-blue-400 p-2">
                                             <MdArrowForwardIos />
@@ -574,7 +751,7 @@ function Thirdpage() {
                                     <img
                                         src={images4[currentIndex4]}
                                         alt={`Project Image ${currentIndex4 + 1}`}
-                                        className="mx-auto h-96 rounded-md"
+                                        className="mx-auto lg:h-96 rounded-md"
                                     />
                                     <div className="flex items-center justify-center mt-4">
                                         <button onClick={handlePrev4} className="text-blue-400 p-2">
@@ -584,7 +761,7 @@ function Thirdpage() {
                                             {images4.map((_, index) => (
                                             <span
                                                 key={index}
-                                                className={`h-3 w-3 rounded-full cursor-pointer ${
+                                                className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer ${
                                                 index === currentIndex4 ? 'bg-blue-500' : 'bg-white'
                                                 }`}
                                                 onClick={() => setCurrentIndex4(index)}
@@ -601,7 +778,7 @@ function Thirdpage() {
                                     <img
                                         src={images5[currentIndex5]}
                                         alt={`Project Image ${currentIndex5 + 1}`}
-                                        className="mx-auto h-96 rounded-md"
+                                        className="mx-auto lg:h-96 rounded-md"
                                     />
                                     <div className="flex items-center justify-center mt-4">
                                         <button onClick={handlePrev5} className="text-blue-400 p-2">
@@ -611,7 +788,7 @@ function Thirdpage() {
                                             {images5.map((_, index) => (
                                             <span
                                                 key={index}
-                                                className={`h-3 w-3 rounded-full cursor-pointer ${
+                                                className={`lg:h-3 lg:w-3 h-2 w-2 rounded-full cursor-pointer ${
                                                 index === currentIndex5 ? 'bg-blue-500' : 'bg-white'
                                                 }`}
                                                 onClick={() => setCurrentIndex5(index)}

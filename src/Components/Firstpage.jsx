@@ -1,63 +1,89 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import picko from '../assets/picko.png';
+
 function Firstpage() {
   const fullText = "Eucary Lloyd D. Dupagan";
   const [displayedText, setDisplayedText] = useState("");
-  
+
+  // Refs for the two sides
+  const imageRef = useRef(null);
+  const textRef = useRef(null);
   useEffect(() => {
     let i = 0;
-    let interval;
-    let timeout;
+    const interval = setInterval(() => {
+      if (i <= fullText.length) {
+        setDisplayedText(fullText.slice(0, i));
+        i++;
+      } else {
+        clearInterval(interval); // Stop when done
+      }
+    }, 100);
 
-    const startTyping = () => {
-      i = 0;
-      interval = setInterval(() => {
-        if (i <= fullText.length) {
-          setDisplayedText(fullText.slice(0, i));
-          i++;
-        } else {
-          clearInterval(interval);
-          timeout = setTimeout(startTyping, 5000); // restart after 5 seconds
-        }
-      }, 100);
-    };
+    return () => clearInterval(interval); // Clean up when unmounting
+  }, []);
 
-    startTyping();
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
+  // Trigger both splits on mount
+  useEffect(() => {
+    if (imageRef.current) {
+      imageRef.current.classList.remove('split-right-hidden');
+      imageRef.current.classList.add('split-right');
+    }
+    if (textRef.current) {
+      textRef.current.classList.remove('split-left-hidden');
+      textRef.current.classList.add('split-left');
+    }
   }, []);
 
   return (
-    
-    <div className="w-full min-h-screen bg-gradient-to-r from-neutral-950 via-neutral-700 to-neutral-400">
-      <div className="flex flex-row h-screen justify-between items-center">
-        <div className="w-4/10 h-screen p-8 ">
-          <img className="w-5/6 h-9/10 ml-10 "
+    <div className="w-full min-h-screen overflow-hidden bg-gradient-to-r from-neutral-400 via-neutral-700 to-neutral-950">
+      <div className="flex flex-col lg:flex-row min-h-screen justify-between justify-center items-center object-contain">
+
+        {/* IMAGE SIDE */}
+        <div
+          ref={imageRef}
+          className="w-full lg:w-1/2 h-[50vh] lg:h-screen p-4 flex justify-center items-center split-right-hidden"
+        >
+          <img
+            className="w-full  h-auto max-h-full object-contain"
             src={picko}
             alt="Graduation"
           />
-
         </div>
-        <div className="w-6/10 h-7/10 p-8 flex flex-col justify-center items-start">
-          <div className="space-y-1">
-          <h2 className="inline-flex items-center text-2xl text-white  " style={{ fontFamily: "'Roboto Flex', sans-serif", fontSize: '1.5rem' }}>
-            <span className='bg-neutral-700 p-5'>Welcome to My Portfolio</span>
-            <span className="inline-flex items-center ml-4 w-100 rounded-2xl  border-b-8 border-solid border-white flex-grow"></span>
-          </h2>
-            <h1 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800" style={{ fontFamily: "'Paytone One', sans-serif", fontSize: '6rem' }}>
-              {displayedText}
-              
+
+        {/* TEXT SIDE */}
+        <div
+          ref={textRef}
+          className="w-full lg:w-1/2 p-4 flex flex-col justify-center items-start text-center lg:text-left split-left-hidden"
+        >
+          <div className="space-y-3 sm:space-y-4 w-full ">
+            <h2
+              className="text-lg sm:text-xl text-white inline-block bg-neutral-700 p-3 rounded"
+              style={{ fontFamily: "'Roboto Flex', sans-serif" }}
+            >
+              Welcome to My Portfolio
+            </h2>
+
+            <h1
+              className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800 break-words leading-tight"
+              style={{ fontFamily: "'Paytone One', sans-serif" }}
+            >
+              <span className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
+                {displayedText}
+              </span>
             </h1>
-            <p style={{ fontFamily: "'Rubik Bubbles', cursive", fontSize: '3rem'  }} className="text-white mt-4">
+
+            <p
+              className="text-white mt-2 sm:mt-4 text-xl sm:text-2xl md:text-3xl"
+              style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+            >
               I'm a Computer Engineer!
             </p>
           </div>
         </div>
       </div>
     </div>
+  
   );
 }
+
 export default Firstpage;
