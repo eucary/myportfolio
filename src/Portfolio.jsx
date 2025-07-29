@@ -6,7 +6,7 @@ import Secondpage from './Components/Secondpage'
 import Thirdpage from './Components/Thirdpage'
 import Fourthpage from './Components/Fourthpage'
 import Lastpage from './Components/Lastpage'
-import Firstpage from './Components/firstpage'
+import Firstpage from './Components/Firstpage'
 
 
 function Portfolio() {
