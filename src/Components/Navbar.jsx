@@ -40,7 +40,7 @@ function Navbar() {
         {/* Resume Button */}
         <div className="hidden md:flex justify-end pr-5">
           <a
-            href="/src/assets/Dupagan-RESUME.pdf"
+            href="/Dupagan-RESUME.pdf"
             download
             className="px-4 py-2 bg-blue-900 rounded-md shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-700 hover:border-2 hover:border-white"
             style={{ fontFamily: "'Roboto Flex', sans-serif" }}
